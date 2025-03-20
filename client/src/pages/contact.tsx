@@ -2,10 +2,10 @@ import { createEffect, Suspense } from "solid-js";
 
 export default function Contact() {
   return (
-    <div class="flex flex-col w-screen h-dvh bg-linear-to-b from-[#100400] to-50% to-[#000000] top-[10%] px-4 items-center ">
+    <div class="flex flex-col w-screen h-dvh top-[10%] px-4 items-center ">
       <div class="flex flex-col w-screen scheme-dark gap-y-4">
-        <h1 class="text-xl text-white px-[2%] py-4 bg-[#1e1e1e]/50 border-b-1">
-          Contact & Acknowledgements
+        <h1 class="text-xl text-white px-[2%] py-4 bg-[#1e1e1e]/50 border-b-1 border-white/20">
+          Contacts & Acknowledgements
         </h1>
 
         <ul class="flex mt-4 text-white px-[2%] list-none flex-col overflow-hidden">
@@ -22,7 +22,7 @@ export default function Contact() {
         <form class="">
           <div class="px-[2%] grid grid-cols-2 grid-rows-2 mt-2.5 gap-4">
             <div class="flex flex-col col-start-1 col-span-1 row-start-1">
-              <label class="text-white">Full Name</label>
+              <label class="text-white">Full Name*</label>
               <input
                 placeholder="e.g John J. Doe"
                 required
@@ -30,7 +30,7 @@ export default function Contact() {
               ></input>
             </div>
             <div class="flex flex-col col-start-2 col-span-1 row-start-1">
-              <label class="text-white">Phone Number</label>
+              <label class="text-white">Phone Number*</label>
               <input
                 placeholder="e.g John J. Doe"
                 required
@@ -38,7 +38,7 @@ export default function Contact() {
               ></input>
             </div>
             <div class="flex flex-col col-start-1 col-span-1 row-start-2">
-              <label class="text-white">Subject</label>
+              <label class="text-white">Subject*</label>
               <input
                 placeholder="e.g Contribution Request"
                 minLength={1}
@@ -47,7 +47,7 @@ export default function Contact() {
               ></input>
             </div>
             <div class="flex flex-col col-start-2 col-span-1 row-start-2">
-              <label class="text-white">Email</label>
+              <label class="text-white">Email*</label>
               <input
                 placeholder="example@domain.com"
                 type="email"
@@ -57,7 +57,7 @@ export default function Contact() {
             </div>
           </div>
           <div class="px-[2%] mt-4">
-            <label class="text-white">Body</label>
+            <label class="text-white">Body*</label>
             <textarea
               placeholder="Input here..."
               minLength={1}
