@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 
+
 export default defineConfig({
-  plugins: [solidPlugin()],
+  plugins: [
+    solidPlugin(),
+  ],
   server: {
     allowedHosts: true,
     host: '127.0.0.1',
