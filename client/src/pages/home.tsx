@@ -8,7 +8,7 @@ export default function Home() {
     <div class="flex-col w-[100%] h-[300vh] bg-linear-to-b from-[#100400] to-50% to-[#000000]">
       <div class="w-full h-screen order-1 items-center relative">
         <BACKGROUND_SVG></BACKGROUND_SVG>
-        <div class="absolute flex flex-col z-[1] w-[60%] h-[80%] left-[20%] bottom-[10%] items-center gap-y-10">
+        <div class="absolute flex flex-col z-[1] w-[60%] h-screen left-[20%] bottom-[10%] top-[5%] items-center gap-y-10">
           <div class="relative flex flex-col items-center gap-y-10">
             <svg
               width={200}
