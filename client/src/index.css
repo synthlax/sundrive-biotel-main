@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Outfit:wght@100..900&display=swap');
 
 /*
     The default border color has changed to `currentColor` in Tailwind CSS v4,
@@ -17,3 +18,17 @@
     border-color: var(--color-gray-200, currentColor);
     }
 }
+
+@theme {
+  --font-display: "Outfit";
+  --font-display--font-feature-settings: "ss01"; 
+  --default-font-variation-settings: "salt"
+}
+
+
+
+html {
+  background: linear-gradient(to bottom, #220a01 0%, #000 100%)
+}
+
+
