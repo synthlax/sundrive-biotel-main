@@ -39,9 +39,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "74765f6d916ee2faa39bc8e68e4f3ed8949b48cccdac59983d287a7cb71ce9c5"
 
 [[package]]
+name = "rust-lzxpress"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0e78de2a1e054da285ce9383e8cbc962d4a2d35adfa204fd6710d803a4bc5564"
+
+[[package]]
 name = "server"
 version = "0.1.0"
 dependencies = [
+ "rust-lzxpress",
  "uuid",
 ]
 

@@ -3,4 +3,7 @@
     "diffEditor.codeLens": true,
     "rust-analyzer.cargo.buildScripts.useRustcWrapper": false,
     "rust-analyzer.restartServerOnConfigChange": true,
+    "editor.fontFamily": "Jetbrains Mono",
+    "editor.fontLigatures": true,
+    "editor.fontVariations": true
 }

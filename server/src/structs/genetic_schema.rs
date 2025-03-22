@@ -11,7 +11,8 @@ pub enum IUPACNucleotide {
     C { letter: char, name: &'static str }, 
     G { letter: char, name: &'static str }, 
     T { letter: char, name: &'static str }, 
-    U { letter: char, name: &'static str }, 
+    U { letter: char, name: &'static str },
+    N { letter: char, name: &'static str } 
     // R { letter: char, name: &'static str },  
     // Y { letter: char, name: &'static str },  
     // S { letter: char, name: &'static str }, 
@@ -50,12 +51,13 @@ pub enum AminoAcid {
     Stop { codons: [IUPACNucleotide; 3], name: &'static str }
 }
 
-const IUPAC_NUCLEOTIDE_TABLE: [IUPACNucleotide; 5] = [    
+const IUPAC_NUCLEOTIDE_TABLE: [IUPACNucleotide; 6] = [    
     IUPACNucleotide::A { letter: 'A', name: "Adenine" },
     IUPACNucleotide::T { letter: 'T', name: "Thymine" },
     IUPACNucleotide::C { letter: 'C', name: "Cytosine" },
     IUPACNucleotide::G { letter: 'G', name: "Guanine" },
     IUPACNucleotide::U { letter: 'U', name: "Uracil" },
+    IUPACNucleotide::N { letter: 'N', name: "Unknown" },
 ];
 
 #[allow(unused)]
@@ -68,6 +70,7 @@ impl IUPACNucleotide {
             IUPACNucleotide::G { .. } => "Guanine",
             IUPACNucleotide::T { .. } => "Thymine",
             IUPACNucleotide::U { .. } => "Uracil",
+            IUPACNucleotide::N { .. } => "Unkown",
             // IUPACNucleotide::R { .. } => "Purine (A or G)",
             // IUPACNucleotide::Y { .. } => "Pyrimidine (C or T)",
             // IUPACNucleotide::S { .. } => "Strong (G or C)",
@@ -89,7 +92,8 @@ impl IUPACNucleotide {
             IUPACNucleotide::G { .. } => Some('G'),
             IUPACNucleotide::T { .. } => Some('T'),
             IUPACNucleotide::U { .. } => Some('U'),
-            _ => None
+            IUPACNucleotide::N { .. } => Some('N'),
+            _ => Some('N')
         }
     }
 
@@ -100,6 +104,7 @@ impl IUPACNucleotide {
             'G' => Some(IUPACNucleotide::G { letter: 'G', name: "Guanine" }),
             'T' => Some(IUPACNucleotide::T { letter: 'T', name: "Thymine" }),
             'U' => Some(IUPACNucleotide::U { letter: 'U', name: "Uracil" }),
+            'N' => Some(IUPACNucleotide::N { letter: 'N', name: "Any nucleotide (A, C, G, T)" }),
             // 'R' => Some(IUPACNucleotide::R { letter: 'R', name: "Purine (A or G)" }),
             // 'Y' => Some(IUPACNucleotide::Y { letter: 'Y', name: "Pyrimidine (C or T)" }),
             // 'S' => Some(IUPACNucleotide::S { letter: 'S', name: "Strong (G or C)" }),
@@ -110,7 +115,6 @@ impl IUPACNucleotide {
             // 'D' => Some(IUPACNucleotide::D { letter: 'D', name: "Not C (A, G, or T)" }),
             // 'H' => Some(IUPACNucleotide::H { letter: 'H', name: "Not G (A, C, or T)" }),
             // 'V' => Some(IUPACNucleotide::V { letter: 'V', name: "Not T (A, C, or G)" }),
-            // 'N' => Some(IUPACNucleotide::N { letter: 'N', name: "Any nucleotide (A, C, G, T)" }),
             _ => None,
         }
     }
