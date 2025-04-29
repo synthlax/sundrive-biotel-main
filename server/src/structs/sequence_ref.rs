@@ -10,7 +10,13 @@ pub struct Record {
 }
 
 impl Record {
-    pub fn new(identifier: String, sequence: String, quality: String,base_contents: HashMap<char, i32>, melting_temperature: f64) -> Record {
+    pub fn new(
+        identifier: String,
+        sequence: String,
+        quality: String,
+        base_contents: HashMap<char, i32>,
+        melting_temperature: f64,
+    ) -> Record {
         Record {
             identifier: Some(identifier),
             sequence: Some(sequence),
@@ -50,5 +56,4 @@ impl Record {
 
         melting_temperature
     }
-
 }

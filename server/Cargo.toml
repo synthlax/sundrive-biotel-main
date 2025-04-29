@@ -4,5 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+memmap2 = "0.9.5"
+rayon = "1.10.0"
 rust-lzxpress = "0.7.1"
 uuid = { version = "1.16.0", features = ["v4"] }

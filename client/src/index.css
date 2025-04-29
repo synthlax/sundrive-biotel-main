@@ -19,16 +19,34 @@
     }
 }
 
-@theme {
-  --font-display: "Outfit";
-  --font-display--font-feature-settings: "ss01"; 
-  --default-font-variation-settings: "salt"
-}
-
-
-
 html {
+  height: 100dvh;
   background: linear-gradient(to bottom, #220a01 0%, #000 100%)
 }
 
+@theme {
+  --font-sans: "Outfit", sans-serif;
+  --font-sans--font-feature-settings: normal; 
+  --font-outfit: "Outfit", sans-serif;
+  --font-outfit--font-feature-settings: 'salt';
+  --font-mono: "JetBrains Mono";
+  --default-mono-font-feature-settings: normal;
+}
 
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  font-feature-settings: "salt", "normal";
+  src: local("Outfit"), url("/fonts/Outfit.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  font-variant-ligatures: normal;
+  src: local("JetBrains Mono"), url("/fonts/JetbrainsMono.woff2") format("woff2");
+}
