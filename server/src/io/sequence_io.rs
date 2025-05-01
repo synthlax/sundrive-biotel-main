@@ -1,7 +1,7 @@
 use memmap2::Mmap;
 use rayon::prelude::*;
 
-pub fn get_identifier_positions(data: Mmap, symbol: char) -> Vec<usize> {
+pub fn get_identifier_positions(data: &[u8], symbol: char) -> Vec<usize> {
     let mut identifier_positions = Vec::new();
     for (i, &b) in data.iter().enumerate() {
         if b == symbol as u8 && (i == 0 || data[i - 1] == b'\n') {
@@ -11,8 +11,8 @@ pub fn get_identifier_positions(data: Mmap, symbol: char) -> Vec<usize> {
     identifier_positions
 }
 
-pub fn get_sequence_ranges(data: Mmap, identifier_positions: Vec<usize>) -> Vec<(usize, usize)> {
-    let ranges: Vec<_> = identifier_positions
+pub fn get_sequence_ranges(data: &[u8], identifier_positions: Vec<usize>) -> Vec<(usize, usize)> {
+    identifier_positions
         .iter()
         .enumerate()
         .map(|(i, &start)| {
@@ -23,8 +23,7 @@ pub fn get_sequence_ranges(data: Mmap, identifier_positions: Vec<usize>) -> Vec<
             };
             (start, end)
         })
-        .collect();
-    ranges
+        .collect()
 }
 
 pub fn find_newline(data: &[u8]) -> usize {
@@ -39,7 +38,7 @@ pub fn find_newline(data: &[u8]) -> usize {
 }
 
 pub fn remove_newlines(data: &[u8]) -> Vec<u8> {
-    let mut new_data: Vec<u8> = Vec::with_capacity(data.len());
+    let mut new_data = Vec::new();
     for &b in data {
         if b != b'\n' {
             new_data.push(b);
@@ -48,10 +47,10 @@ pub fn remove_newlines(data: &[u8]) -> Vec<u8> {
     new_data
 }
 
-pub fn get_sequence(record_chunk: &'static [u8], format_type: &str) -> Option<&'static [u8]> {
+pub fn get_sequence<'a>(record_chunk: &'a [u8], format_type: &str) -> Option<(&'a [u8], usize)> {
     match format_type {
-        "FASTA" => Some(&record_chunk[find_newline(record_chunk) + 1..]),
-        "PLAIN" => Some(&record_chunk[find_newline(record_chunk) + 1..]),
+        "FASTA" => Some((&record_chunk[find_newline(record_chunk) + 1..], record_chunk.len())),
+        "PLAIN" => Some((&record_chunk[find_newline(record_chunk) + 1..], record_chunk.len())),
         "FASTQ" => {
             let mut symbol_position = find_newline(record_chunk) + 1;
             while symbol_position < record_chunk.len() {
@@ -66,19 +65,21 @@ pub fn get_sequence(record_chunk: &'static [u8], format_type: &str) -> Option<&'
                     symbol_position += newline + 1;
                 };
             }
-            Some(&record_chunk[find_newline(record_chunk) + 1..symbol_position - 1])
+            Some((&record_chunk[find_newline(record_chunk) + 1..symbol_position - 2], symbol_position))
         }
-        _ => None,
+        _ => None
     }
 }
 
-pub fn get_record_information(data: Mmap, ranges: Vec<(usize, usize)>, format_type: &str) {
+pub fn get_records<'a>(data: &[u8], ranges: Vec<(usize, usize)>, format_type: &'a str) -> Vec<(String, String, String)> {
     ranges
         .par_iter()
         .map(|&(start, end)| {
             let record_chunk = &data[start..end];
             let identifier = &record_chunk[1..find_newline(record_chunk)];
-            let sequence = remove_newlines(get_sequence(record_chunk, format_type).unwrap());
+            let sequence = &remove_newlines(get_sequence(record_chunk, format_type).unwrap().0)[..];
+            let quality = &record_chunk[get_sequence(record_chunk, format_type).unwrap().1..];
+            (String::from_utf8_lossy(identifier).to_string(), String::from_utf8_lossy(sequence).to_string(), String::from_utf8_lossy(quality).to_string())
         })
-        .collect();
+        .collect()
 }

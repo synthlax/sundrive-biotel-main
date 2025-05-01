@@ -1,0 +1,1 @@
+std::iter::Map<std::slice::Iter<'_, (usize, usize)>, {closure@src/io/sequence_io.rs:78:14: 78:29}>
