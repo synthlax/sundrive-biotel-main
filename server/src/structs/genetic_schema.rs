@@ -1,7 +1,6 @@
 // /*
 //     Commented segments are currently disabled for simplicity until future implemenations.
 // */
-
 // use std::collections::HashMap;
 
 // use crate::error::nucleotide_error::NucleotideError;
@@ -9,23 +8,23 @@
 // #[allow(unused)]
 // #[derive(Copy, Clone, PartialEq)]
 // pub enum IUPACNucleotide {
-//     A { letter: char, name: &'static str }, 
-//     C { letter: char, name: &'static str }, 
-//     G { letter: char, name: &'static str }, 
-//     T { letter: char, name: &'static str }, 
+//     A { letter: char, name: &'static str },
+//     C { letter: char, name: &'static str },
+//     G { letter: char, name: &'static str },
+//     T { letter: char, name: &'static str },
 //     U { letter: char, name: &'static str },
-//     N { letter: char, name: &'static str } 
-//     // R { letter: char, name: &'static str },  
-//     // Y { letter: char, name: &'static str },  
-//     // S { letter: char, name: &'static str }, 
-//     // W { letter: char, name: &'static str },  
-//     // K { letter: char, name: &'static str },  
-//     // M { letter: char, name: &'static str },  
-//     // B { letter: char, name: &'static str },  
-//     // D { letter: char, name: &'static str },  
-//     // H { letter: char, name: &'static str },  
-//     // V { letter: char, name: &'static str },  
-//     // N { letter: char, name: &'static str },  
+//     N { letter: char, name: &'static str }
+//     // R { letter: char, name: &'static str },
+//     // Y { letter: char, name: &'static str },
+//     // S { letter: char, name: &'static str },
+//     // W { letter: char, name: &'static str },
+//     // K { letter: char, name: &'static str },
+//     // M { letter: char, name: &'static str },
+//     // B { letter: char, name: &'static str },
+//     // D { letter: char, name: &'static str },
+//     // H { letter: char, name: &'static str },
+//     // V { letter: char, name: &'static str },
+//     // N { letter: char, name: &'static str },
 // }
 
 // #[allow(unused)]
@@ -53,7 +52,7 @@
 //     Stop { codons: [IUPACNucleotide; 3], name: &'static str }
 // }
 
-// const IUPAC_NUCLEOTIDE_TABLE: [IUPACNucleotide; 6] = [    
+// const IUPAC_NUCLEOTIDE_TABLE: [IUPACNucleotide; 6] = [
 //     IUPACNucleotide::A { letter: 'A', name: "Adenine" },
 //     IUPACNucleotide::T { letter: 'T', name: "Thymine" },
 //     IUPACNucleotide::C { letter: 'C', name: "Cytosine" },
@@ -172,6 +171,5 @@
 //         }
 //         Some(nucleotide_table)
 //     }
-    
 
 // }

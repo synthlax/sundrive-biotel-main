@@ -1,58 +1,52 @@
-use std::collections::HashMap;
-
+use std::borrow::Cow;
 #[derive(Debug)]
-pub struct Record {
-    identifier: Option<String>,
-    sequence: Option<String>,
-    quality: Option<String>,
-    base_contents: Result<HashMap<char, i32>, String>,
-    melting_temperature: Result<f64, String>,
+pub struct Record<'a> {
+    identifier: &'a str,
+    sequence: Cow<'a, [u8]>,
+    quality: &'a [u8],
+    base_counts: [usize; 128],
+    melting_temp: Option<f64>,
 }
 
-impl Record {
-    pub fn new(
-        identifier: String,
-        sequence: String,
-        quality: String,
-        base_contents: HashMap<char, i32>,
-        melting_temperature: f64,
-    ) -> Record {
-        Record {
-            identifier: Some(identifier),
-            sequence: Some(sequence),
-            quality: Some(quality),
-            base_contents: Ok(base_contents),
-            melting_temperature: Ok(melting_temperature),
+impl<'a> Record<'a> {
+    pub fn new(identifier: &'a str, sequence: Cow<'a, [u8]>, quality: &'a [u8]) -> Self {
+        let base_counts = Self::count_bases(&sequence);
+        Self {
+            identifier,
+            sequence,
+            quality,
+            base_counts,
+            melting_temp: None,
         }
     }
 
-    pub fn get_identifier(&self) -> &String {
-        let identifier = &self.identifier;
-        identifier.as_ref().unwrap()
+    pub fn get_identifier(&self) -> &str {
+        &self.identifier
     }
 
-    pub fn get_sequence(&self) -> &String {
-        let sequence = &self.sequence;
-        sequence.as_ref().unwrap()
+    pub fn get_sequence(&self) -> &str {
+        &std::str::from_utf8(&self.sequence).unwrap_or_default()
     }
 
-    pub fn get_quality(&self) -> &String {
-        let quality = &self.quality;
-        quality.as_ref().unwrap()
+    pub fn get_quality(&self) -> &str {
+        std::str::from_utf8(self.quality).unwrap_or_default()
     }
 
-    pub fn get_base_contents(&self) -> &HashMap<char, i32> {
-        let base_contents = &self.base_contents;
-        base_contents.as_ref().unwrap()
-    }
-    pub fn get_melting_temperature(&self) -> &f64 {
-        let melting_temperature = &self.melting_temperature;
-        melting_temperature.as_ref().unwrap()
+    fn count_bases(sequence: &[u8]) -> [usize; 128] {
+        let mut base_counts = [0usize; 128];
+        for &b in std::str::from_utf8(&sequence)
+            .unwrap_or_default()
+            .as_bytes()
+        {
+            if b < 128 {
+                base_counts[b as usize] += 1
+            }
+        }
+        base_counts
     }
 
-    fn calculate_melting_temperature(&self) -> f64 {
-        let base_contents = self.get_base_contents();
-        let mut melting_temperature = 0.0;
+    fn calculate_melting_temperature() -> f64 {
+        let melting_temperature = 0.0;
 
         melting_temperature
     }
