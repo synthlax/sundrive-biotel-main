@@ -1,6 +1,9 @@
 #[cfg(test)]
 mod test {
-    use crate::io::fasta;
+    use crate::{
+        io::fasta,
+        structs::sequence_ref::{quality_to_str, sequence_to_str},
+    };
     use std::time::Instant;
 
     #[test]
@@ -15,8 +18,11 @@ mod test {
                 "{:#?}",
                 (
                     record.get_identifier(),
-                    record.get_sequence(),
-                    record.get_quality()
+                    sequence_to_str(record.get_sequence()),
+                    sequence_to_str(record.reverse_sequence().as_slice()),
+                    sequence_to_str(record.complement_sequence().as_slice()),
+                    sequence_to_str(record.reverse_complement_sequence().as_slice()),
+                    quality_to_str(record.get_quality())
                 )
             )
         }
